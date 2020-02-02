@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+import { MatSnackBar } from '@angular/material';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ThrowStmt } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-login',
@@ -7,9 +14,84 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  readonly PRE_JOGO_PATH: string = '/pre-jogo';
+  form: FormGroup;
+  cadastro: boolean;
+
+  constructor(
+    public angularFireAuth: AngularFireAuth,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar){}
 
   ngOnInit() {
+    //Redirecionamento do usuário caso a autenticação já tenha ocorrido
+    this.angularFireAuth.authState.subscribe(authState => {
+      if (authState) {
+        this.router.navigate([this.PRE_JOGO_PATH]);
+      }
+    });
+    this.cadastro = false;
+    this.gerarForm();
   }
+
+  gerarForm(){
+    this.form = this.formBuilder.group({
+      email:['', [Validators.required, Validators.email]],
+      senha:['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
+
+  logarGoogle() {
+    this.angularFireAuth.auth.signInWithPopup(
+      new firebase.auth.GoogleAuthProvider())
+      .then(res => this.router.navigate([this.PRE_JOGO_PATH]))
+      .catch(err => this.snackBar.open(
+          'Problema ao autenticar no Google.',
+          'Erro', {duration: 5000}
+        )
+      );
+  }
+
+  logarEmail() {
+    if (this.form.invalid) {
+      return;
+    }
+    const dados = this.form.value;
+    this.angularFireAuth.auth
+      .signInWithEmailAndPassword(dados.email, dados.senha)
+      .then(res => this.router.navigate([this.PRE_JOGO_PATH]))
+      .catch(err => this.snackBar
+        .open(
+          'Usuário/senha inválido(s)',
+          'Erro', { duration: 5000}
+        )
+      );   
+  }
+
+  cadastrarEmail() {
+    if (this.form.invalid) {
+      return;
+    }
+    const dados = this.form.value;
+    this.angularFireAuth.auth
+    .createUserAndRetrieveDataWithEmailAndPassword
+      (dados.email, dados.senha)
+      .then(res => this.router.navigate([this.PRE_JOGO_PATH]))
+      .catch(err => this.snackBar
+        .open(
+          'Problema ao cadastrar email.',
+          'Erro', { duration: 5000}
+        )
+      );
+   }
+
+   exibirCadastro() {
+     this.cadastro = true;
+   }
+
+   exibirLogin() {
+     this.cadastro = false;
+   }
 
 }
