@@ -25,7 +25,7 @@ import {
 
 
 
-import { LoginComponent, PreJogoComponent } from './components';
+import { LoginComponent, PreJogoComponent, AdminComponent } from './components';
 import { AppRoutingModule } from './app-routing.module';
 
 
@@ -35,7 +35,8 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [
     AppComponent,
     LoginComponent,
-    PreJogoComponent
+    PreJogoComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
