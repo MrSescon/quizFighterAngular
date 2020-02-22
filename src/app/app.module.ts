@@ -25,7 +25,12 @@ import {
 
 
 
-import { LoginComponent, PreJogoComponent, AdminComponent } from './components';
+import { 
+        LoginComponent, 
+        PreJogoComponent, 
+        AdminComponent, 
+        PerguntaFormDialogComponent 
+      } from './components';
 import { AppRoutingModule } from './app-routing.module';
 
 
@@ -36,7 +41,8 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     LoginComponent,
     PreJogoComponent,
-    AdminComponent
+    AdminComponent,
+    PerguntaFormDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +67,9 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule
   ],
   providers: [],
+  entryComponents: [
+    PerguntaFormDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

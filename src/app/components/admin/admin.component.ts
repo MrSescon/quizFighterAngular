@@ -10,6 +10,7 @@ import { environment as env } from '../../../environments/environment';
 
 import {PerguntasService } from '../../services';
 import { Pergunta } from '../../models';
+import { PerguntaFormDialogComponent } from './dialogs';
 
 @Component({
   selector: 'app-admin',
@@ -48,6 +49,16 @@ export class AdminComponent implements OnInit {
 
   sair() {
     this.angularFireAuth.auth.signOut();
+  }
+
+  cadastrar(){
+    this.dialog
+      .open(PerguntaFormDialogComponent)
+      .afterClosed().subscribe(data => {
+        if (data && data.pergunta !== null) {
+          this.perguntasService.cadastrar(data.pergunta);
+        }
+      });
   }
 
 }
