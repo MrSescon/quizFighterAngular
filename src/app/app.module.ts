@@ -29,9 +29,12 @@ import {
         LoginComponent, 
         PreJogoComponent, 
         AdminComponent, 
-        PerguntaFormDialogComponent 
+        PerguntaFormDialogComponent,
+        ConfirmarRemoverDialogComponent,
+        ConfirmarRestauracaoDialogComponent
       } from './components';
 import { AppRoutingModule } from './app-routing.module';
+
 
 
 
@@ -42,7 +45,9 @@ import { AppRoutingModule } from './app-routing.module';
     LoginComponent,
     PreJogoComponent,
     AdminComponent,
-    PerguntaFormDialogComponent
+    PerguntaFormDialogComponent,
+    ConfirmarRemoverDialogComponent,
+    ConfirmarRestauracaoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +73,9 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   providers: [],
   entryComponents: [
-    PerguntaFormDialogComponent
+    PerguntaFormDialogComponent,
+    ConfirmarRemoverDialogComponent,
+    ConfirmarRestauracaoDialogComponent
   ],
   bootstrap: [AppComponent]
 })

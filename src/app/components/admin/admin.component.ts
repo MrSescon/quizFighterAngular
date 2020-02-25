@@ -10,7 +10,11 @@ import { environment as env } from '../../../environments/environment';
 
 import {PerguntasService } from '../../services';
 import { Pergunta } from '../../models';
-import { PerguntaFormDialogComponent } from './dialogs';
+import { 
+  PerguntaFormDialogComponent, 
+  ConfirmarRemoverDialogComponent,
+  ConfirmarRestauracaoDialogComponent
+} from './dialogs';
 
 @Component({
   selector: 'app-admin',
@@ -57,6 +61,42 @@ export class AdminComponent implements OnInit {
       .afterClosed().subscribe(data => {
         if (data && data.pergunta !== null) {
           this.perguntasService.cadastrar(data.pergunta);
+        }
+      });
+  }
+
+  atualizar($event: any, pergunta: Pergunta) {
+    $event.preventDefault();
+    this.dialog.open(
+      PerguntaFormDialogComponent,
+      { data: {pergunta: pergunta } }
+    )
+    .afterClosed().subscribe(data => {
+      if (data && data.pergunta !== null) {
+        this.perguntasService.atualizar(data.pergunta, data.id);
+      }
+    });
+  }
+
+  remover($event: any, perguntaId: string) {
+    $event.preventDefault();
+    this.dialog.open(
+      ConfirmarRemoverDialogComponent,
+      { data: {perguntaId: perguntaId } }
+    )
+    .afterClosed().subscribe(data => {
+      if (data) {
+        this.perguntasService.remover(data.perguntaId);
+      }
+    });
+  }
+
+  confirmarRestauracaoDados() {
+    this.dialog
+      .open(ConfirmarRestauracaoDialogComponent)
+      .afterClosed().subscribe(resposta => {
+        if (resposta) {
+          this.perguntasService.restaurarPerguntas();
         }
       });
   }
