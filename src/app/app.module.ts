@@ -31,9 +31,11 @@ import {
         AdminComponent, 
         PerguntaFormDialogComponent,
         ConfirmarRemoverDialogComponent,
-        ConfirmarRestauracaoDialogComponent
+        ConfirmarRestauracaoDialogComponent,
+        JogosFormDialogComponent
       } from './components';
 import { AppRoutingModule } from './app-routing.module';
+
 
 
 
@@ -47,7 +49,8 @@ import { AppRoutingModule } from './app-routing.module';
     AdminComponent,
     PerguntaFormDialogComponent,
     ConfirmarRemoverDialogComponent,
-    ConfirmarRestauracaoDialogComponent
+    ConfirmarRestauracaoDialogComponent,
+    JogosFormDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +78,8 @@ import { AppRoutingModule } from './app-routing.module';
   entryComponents: [
     PerguntaFormDialogComponent,
     ConfirmarRemoverDialogComponent,
-    ConfirmarRestauracaoDialogComponent
+    ConfirmarRestauracaoDialogComponent,
+    JogosFormDialogComponent
   ],
   bootstrap: [AppComponent]
 })

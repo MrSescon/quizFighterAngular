@@ -8,12 +8,13 @@ import {
 } from '@angular/material';
 import { environment as env } from '../../../environments/environment';
 
-import {PerguntasService } from '../../services';
+import {PerguntasService, JogoService } from '../../services';
 import { Pergunta } from '../../models';
 import { 
   PerguntaFormDialogComponent, 
   ConfirmarRemoverDialogComponent,
-  ConfirmarRestauracaoDialogComponent
+  ConfirmarRestauracaoDialogComponent,
+  JogosFormDialogComponent
 } from './dialogs';
 
 @Component({
@@ -31,7 +32,8 @@ export class AdminComponent implements OnInit {
     private angularFireAuth: AngularFireAuth,
     private router: Router,
     private dialog: MatDialog,
-    private perguntasService: PerguntasService
+    private perguntasService: PerguntasService,
+    private jogoService: JogoService
   ) { }
 
   ngOnInit() {
@@ -100,5 +102,17 @@ export class AdminComponent implements OnInit {
         }
       });
   }
+
+
+  inicializarJogos() {
+    this.dialog
+      .open(JogosFormDialogComponent)
+      .afterClosed().subscribe(data => {
+        if (data) {
+          this.jogoService.inicializarJogos(data);
+        }
+      })
+  }
+
 
 }
